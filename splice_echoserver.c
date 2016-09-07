@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 	struct sockaddr_in address, client;
 	socklen_t client_addrlen;
 	int pipefd[2];
+	int reuse = 1;
 	int connfd;
 	int sock;
 	int ret;
@@ -37,6 +38,7 @@ int main(int argc, char *argv[])
 	address.sin_port = htons(port);
 
 	sock = socket(PF_INET, SOCK_STREAM, 0);
+	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(int));
 	ret = bind(sock, &address, sizeof(address));
 	if (ret) {
 		printf("bind to port %d fails\n", port);

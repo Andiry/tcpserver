@@ -18,6 +18,7 @@ int main(int argc, char *argv[])
 	socklen_t client_addrlen;
 	struct stat stat_buf;
 	int connfd;
+	int reuse = 1;
 	int sock;
 	int ret;
 	int file_fd;
@@ -38,6 +39,7 @@ int main(int argc, char *argv[])
 	address.sin_port = htons(port);
 
 	sock = socket(PF_INET, SOCK_STREAM, 0);
+	setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(int));
 	ret = bind(sock, &address, sizeof(address));
 	if (ret)
 		return ret;
