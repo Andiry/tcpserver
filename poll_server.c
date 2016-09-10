@@ -85,6 +85,7 @@ int main(int argc, char *argv[])
 
 	close(connfd);
 	close(sock);
+	free(fds);
 	return 0;
 }
 
